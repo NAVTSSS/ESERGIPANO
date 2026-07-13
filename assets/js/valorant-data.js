@@ -123,8 +123,8 @@ const jogos = [
    - "status" -> "agendado" | "ao_vivo" | "finalizada"
 ================================================================ */
 const semifinaisConfig = [
-  { nome: "Semifinal 1", seedA: 2, seedB: 3, dia: "Sexta-feira", horario: "20h00", formato: "MD3", placarA: null, placarB: null, status: "agendado" },
-  { nome: "Semifinal 2", seedA: 1, seedB: 4, dia: "Sábado",       horario: "14h00", formato: "MD3", placarA: null, placarB: null, status: "agendado" }
+  { nome: "Semifinal 1", seedA: 1, seedB: 4, dia: "Sexta-feira", horario: "20h00", formato: "MD3", placarA: null, placarB: null, status: "agendado" },
+  { nome: "Semifinal 2", seedA: 2, seedB: 3, dia: "Sábado",       horario: "14h00", formato: "MD3", placarA: null, placarB: null, status: "agendado" }
 ];
 
 /* Grande Final — os times só são conhecidos depois das semifinais.
