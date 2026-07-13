@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergipano 2026 — Valorant</title>
+
+<!--
+  ===========================================================
+  SERGIPANO 2026 — VALORANT
+  Site de acompanhamento do campeonato.
+
+  Este arquivo é só a "estrutura" (HTML) do site.
+  Quem cuida da aparência (cores, fontes, espaçamentos) é o
+  arquivo hub.css / campeonato.css.
+  Quem cuida dos dados (patrocinadores, times, jogos, placares,
+  classificação) é o arquivo valorant-data.js — é ALI que você vai
+  mexer no dia a dia. A classificação é calculada sozinha.
+
+  Você quase nunca vai precisar editar este arquivo HTML.
+  ===========================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../assets/css/hub.css">
+<link rel="stylesheet" href="../../assets/css/campeonato.css">
+</head>
+<body style="--mod-color-rgb: 254, 206, 0;">
+<!-- A cor acima (--mod-color-rgb) é a cor de destaque do Valorant.
+     Quando a gente montar a página de outra modalidade, só troca
+     esse número — todo o resto (cards, tabelas, botões) se adapta
+     sozinho, porque tudo usa essa variável. -->
+
+<!-- ============================================================ -->
+<!-- BARRA DE FUNDO ANIMADA (só decoração, não precisa mexer)       -->
+<!-- ============================================================ -->
+<div class="scan-overlay" aria-hidden="true"></div>
+
+<!-- ============================================================ -->
+<!-- 1. HEADER / TOPO                                              -->
+<!-- ============================================================ -->
+<header class="site-header" id="topo">
+  <div class="header-inner">
+    <div class="brand">
+      <a href="../../index.html" class="brand-link" aria-label="Voltar para a home do ESERGIPANO">
+        <img src="../../assets/logo-campeonato.png" alt="Logo ESERGIPANO 2026" class="brand-logo">
+      </a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Navegação principal — a MESMA em todas as páginas do site -->
+    <nav class="main-nav" id="mainNav">
+      <a href="../../index.html#modalidades" class="nav-link">Modalidades</a>
+      <a href="../../index.html#calendario" class="nav-link">Calendário</a>
+      <a href="../../index.html#noticias" class="nav-link">Notícias</a>
+      <a href="../../index.html#patrocinadores" class="nav-link">Patrocinadores</a>
+      <a href="../../equipes/index.html" class="nav-link">Equipes</a>
+      <a href="../../estatisticas/index.html" class="nav-link">Estatísticas</a>
+      <a href="../../hall-da-fama/index.html" class="nav-link">Hall da Fama</a>
+      <a href="#regulamento" class="nav-link">Regulamento</a>
+    </nav>
+  </div>
+
+  <!-- Sub-navegação — só existe dentro da página de UM campeonato -->
+  <div class="campeonato-subnav">
+    <div class="campeonato-subnav-inner">
+      <span class="subnav-crumb"><a href="../../index.html">Hub</a> / Valorant</span>
+      <a href="#times" class="subnav-link">Times</a>
+      <a href="#classificacao" class="subnav-link">Classificação</a>
+      <a href="#resultados" class="subnav-link">Resultados</a>
+      <a href="#cronograma" class="subnav-link">Cronograma</a>
+      <a href="#semifinais" class="subnav-link">Semifinais</a>
+      <a href="#administracao" class="subnav-link">Administração</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- 2. HERO                                                       -->
+<!-- ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-main">
+      <span class="hero-eyebrow"><span class="dot"></span>Em andamento • fase de grupos</span>
+      <h1 class="hero-title">VALORANT<span class="hero-title-accent">2026</span><span class="hero-title-sub">ESERGIPANO</span></h1>
+      <p class="hero-text">5 times, todos contra todos. Acompanhe a tabela, os confrontos, horários e resultados em tempo real.</p>
+      <div class="hero-actions">
+        <a href="#resultados" class="btn btn-primary">Ver resultados</a>
+        <a href="#classificacao" class="btn btn-secondary">Ver classificação</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. PATROCINADORES (renderizado via JS a partir de "sponsors") -->
+<!-- ============================================================ -->
+<section class="sponsors-strip" id="patrocinadores">
+  <span class="sponsors-label">Patrocinadores</span>
+  <div class="sponsors-marquee">
+    <div class="sponsors-track" id="sponsorsTrack">
+      <!-- Logos inseridas aqui automaticamente pelo valorant-data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. TIMES (renderizado via JS a partir do array "times")      -->
+<!-- ============================================================ -->
+<section class="section" id="times">
+  <div class="section-inner">
+    <span class="section-eyebrow">Competidores</span>
+    <h2 class="section-title">Times participantes</h2>
+    <div class="teams-grid" id="teamsGrid">
+      <!-- Os cards dos times são inseridos aqui automaticamente pelo valorant-data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 5. CLASSIFICAÇÃO (calculada automaticamente a partir de "jogos") -->
+<!-- ============================================================ -->
+<section class="section section-alt" id="classificacao">
+  <div class="section-inner">
+    <span class="section-eyebrow">Tabela</span>
+    <h2 class="section-title">Classificação</h2>
+    <p class="section-lead">Atualizada automaticamente a cada resultado cadastrado. Critérios de desempate: pontos → saldo de rounds → confronto direto → ordem alfabética.</p>
+
+    <div class="table-wrap standings-desktop">
+      <table class="standings-table">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th class="col-team">Time</th>
+            <th>J</th>
+            <th>V</th>
+            <th>D</th>
+            <th>SD</th>
+            <th>Pts</th>
+          </tr>
+        </thead>
+        <tbody id="standingsBody">
+          <!-- Linhas inseridas automaticamente pelo valorant-data.js -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Versão em cards para celular -->
+    <div class="standings-mobile" id="standingsCards"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 6. RESULTADOS DA SEMANA (com filtros)                         -->
+<!-- ============================================================ -->
+<section class="section" id="resultados">
+  <div class="section-inner">
+    <span class="section-eyebrow">Confrontos</span>
+    <h2 class="section-title">Resultados da Semana</h2>
+    <p class="section-lead">Todas as partidas da fase de grupos, organizadas por rodada.</p>
+
+    <div class="results-toolbar">
+      <div class="results-counters">
+        <div class="counter-chip">
+          <span class="counter-num" id="contadorDisputadas">0</span>
+          <span class="counter-label">Disputadas</span>
+        </div>
+        <div class="counter-chip">
+          <span class="counter-num" id="contadorRestantes">0</span>
+          <span class="counter-label">Restantes</span>
+        </div>
+      </div>
+
+      <div class="results-filters">
+        <select id="filtroRodada" class="filter-select" aria-label="Filtrar por rodada"></select>
+        <select id="filtroTime" class="filter-select" aria-label="Filtrar por time"></select>
+        <input type="search" id="filtroBusca" class="filter-search" placeholder="Buscar time...">
+      </div>
+    </div>
+
+    <div id="resultadosContainer">
+      <!-- Grupos por rodada montados automaticamente pelo valorant-data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 7. CRONOGRAMA (todas as partidas do campeonato)               -->
+<!-- ============================================================ -->
+<section class="section section-alt" id="cronograma">
+  <div class="section-inner">
+    <span class="section-eyebrow">Agenda</span>
+    <h2 class="section-title">Cronograma</h2>
+    <p class="section-lead">Todos os confrontos do campeonato. Assim que uma partida termina, o placar aparece aqui automaticamente.</p>
+    <div id="cronogramaContainer">
+      <!-- Grupos por rodada montados automaticamente pelo valorant-data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 8. SEMIFINAIS (renderizado via JS a partir de "semifinais")  -->
+<!-- ============================================================ -->
+<section class="section" id="semifinais">
+  <div class="section-inner">
+    <span class="section-eyebrow">Mata-mata</span>
+    <h2 class="section-title">Chaveamento — Semifinais &amp; Final</h2>
+    <p class="section-lead">Chaveamento cruzado, montado automaticamente pela classificação da fase de grupos: 1º colocado × 4º colocado e 2º colocado × 3º colocado. Semifinais em MD3 (melhor de 3 mapas); os vencedores avançam para a Grande Final.</p>
+
+    <div class="bracket">
+      <span class="bracket-round-label bracket-round-label-semis">Semifinais</span>
+      <span class="bracket-round-label bracket-round-label-final">Grande Final</span>
+
+      <div class="semis-grid" id="semisGrid">
+        <!-- Cards das semifinais inseridos automaticamente pelo valorant-data.js -->
+      </div>
+
+      <div class="bracket-connector" aria-hidden="true">
+        <span class="bracket-connector-mid"></span>
+        <span class="bracket-connector-out"></span>
+      </div>
+
+      <div class="bracket-final-wrap" id="finalSlot">
+        <!-- Card da final inserido automaticamente pelo valorant-data.js -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 9. REGULAMENTO RESUMIDO                                       -->
+<!-- ============================================================ -->
+<section class="section section-alt" id="regulamento">
+  <div class="section-inner">
+    <span class="section-eyebrow">Regras</span>
+    <h2 class="section-title">Regulamento resumido</h2>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <span class="rule-number">01</span>
+        <h3>Fase de grupos</h3>
+        <p>Todos contra todos, em partidas MD1 (mapa único), com duração estimada de 1 hora cada.</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-number">02</span>
+        <h3>Classificação</h3>
+        <p>Os 4 melhores times da fase de grupos avançam para as semifinais.</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-number">03</span>
+        <h3>Semifinais</h3>
+        <p>Disputadas em MD3 (melhor de 3 mapas), com uma série por dia.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:28px; text-align:center;">
+      <a href="https://drive.google.com/file/d/12H9XHTRLDM2vGJXWknyyUQuZXDgbbdm1/view" target="_blank" rel="noopener" class="btn btn-primary">Ver regulamento completo (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 10. ADMINISTRAÇÃO — inserir/editar resultados                 -->
+<!-- ============================================================ -->
+<section class="section admin-section" id="administracao">
+  <div class="section-inner">
+    <span class="section-eyebrow">Área restrita</span>
+    <h2 class="section-title">Administração</h2>
+
+    <!-- Tela de senha -->
+    <div class="admin-lock" id="adminLock">
+      <p class="section-lead">Digite a senha para cadastrar resultados.</p>
+      <div class="admin-lock-form">
+        <input type="password" id="adminSenhaInput" class="filter-search" placeholder="Senha">
+        <button type="button" class="btn btn-primary" id="adminEntrar">Entrar</button>
+      </div>
+      <p class="admin-lock-erro" id="adminLockErro"></p>
+    </div>
+
+    <!-- Painel (só aparece depois da senha certa) -->
+    <div class="admin-panel" id="adminPanel" style="display:none;">
+      <div class="admin-grid">
+        <form class="admin-form" id="adminForm">
+          <label class="admin-label">
+            Partida
+            <select id="adminSelectJogo" class="filter-select admin-full"></select>
+          </label>
+
+          <div class="admin-matchup">
+            <span id="adminTimeALabel"></span>
+            <span class="admin-vs">x</span>
+            <span id="adminTimeBLabel"></span>
+          </div>
+
+          <div class="admin-row">
+            <label class="admin-label">
+              Placar Time A
+              <input type="number" min="0" id="adminPlacarA" class="filter-search admin-full">
+            </label>
+            <label class="admin-label">
+              Placar Time B
+              <input type="number" min="0" id="adminPlacarB" class="filter-search admin-full">
+            </label>
+          </div>
+
+          <div class="admin-row">
+            <label class="admin-label">
+              Mapa
+              <select id="adminMapa" class="filter-select admin-full">
+                <option value="">Selecione o mapa</option>
+                <option>Ascent</option>
+                <option>Bind</option>
+                <option>Breeze</option>
+                <option>Fracture</option>
+                <option>Haven</option>
+                <option>Icebox</option>
+                <option>Lotus</option>
+                <option>Pearl</option>
+                <option>Split</option>
+                <option>Sunset</option>
+                <option>Abyss</option>
+              </select>
+            </label>
+            <label class="admin-label">
+              Status
+              <select id="adminStatus" class="filter-select admin-full">
+                <option value="agendado">Em breve</option>
+                <option value="ao_vivo">Ao vivo</option>
+                <option value="finalizada">Finalizada</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-row">
+            <label class="admin-label">
+              Data
+              <input type="text" id="adminData" class="filter-search admin-full" placeholder="ex: 10/08">
+            </label>
+            <label class="admin-label">
+              Horário
+              <input type="text" id="adminHorario" class="filter-search admin-full" placeholder="ex: 20h00">
+            </label>
+          </div>
+
+          <label class="admin-label">
+            MVP (opcional)
+            <input type="text" id="adminMvp" class="filter-search admin-full" placeholder="Nome do jogador">
+          </label>
+
+          <label class="admin-label">
+            Link da transmissão / VOD (opcional)
+            <input type="url" id="adminVod" class="filter-search admin-full" placeholder="https://...">
+          </label>
+
+          <button type="submit" class="btn btn-primary admin-full">Salvar Resultado</button>
+          <p class="admin-feedback" id="adminFeedback"></p>
+        </form>
+
+        <div class="admin-side">
+          <div class="alert-box">
+            <strong>Como publicar pra todo mundo ver:</strong>
+            <p style="margin-top:8px;">O botão "Salvar Resultado" guarda os dados só no seu navegador. Para o resultado aparecer pros visitantes do site, clique em "Exportar código atualizado", copie o texto e cole no lugar do bloco <code>const jogos = [...]</code> dentro do arquivo <code>valorant-data.js</code>, depois suba o arquivo de novo no seu servidor/hospedagem.</p>
+          </div>
+          <button type="button" class="btn btn-secondary admin-full" id="adminExportar">Exportar código atualizado</button>
+          <textarea id="adminExportBox" class="admin-export-box" style="display:none;" readonly rows="10"></textarea>
+          <button type="button" class="btn btn-secondary admin-full admin-danger" id="adminLimparTudo">Apagar resultados salvos neste navegador</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 11. RODAPÉ                                                    -->
+<!-- ============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-title">Esergipano 2026 — Valorant</span>
+      <span class="footer-sub">Desenvolvido para acompanhamento do campeonato</span>
+    </div>
+    <div class="footer-social">
+      <!-- Placeholders de redes sociais — troque o "#" pelo link real quando tiver -->
+      <a href="https://www.instagram.com/feseeeoficial/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" class="social-link" aria-label="Twitter/X">Twitter/X</a>
+      <a href="https://discord.gg/apnZ8FbGwd" class="social-link" aria-label="Discord" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.twitch.tv/feseee" class="social-link" aria-label="Twitch" target="_blank" rel="noopener">Twitch</a>
+      <a href="https://www.youtube.com/@E-Sergipano" class="social-link" aria-label="YouTube" target="_blank" rel="noopener">YouTube</a>
+      <a href="#administracao" class="social-link">Administração</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/teams-data.js"></script>
+<script src="../../assets/js/valorant-data.js"></script>
+</body>
+</html>
